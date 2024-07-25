@@ -1,0 +1,151 @@
+@import "../../styles/index.scss";
+
+.header {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  @include lg {
+    border-bottom: 2px solid #228b22;
+  }
+  &-menu {
+    display: none;
+
+    @include lg {
+      display: block;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+      i {
+        color: #228b22;
+        font-size: 24px;
+      }
+    }
+  }
+  &-info {
+    padding: 6px 10% 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include xxl {
+      padding: 12px 20% 12px 20%;
+    }
+    @include lg {
+      padding: 12px 18px;
+    }
+    @include xs {
+      padding: 6px 12px;
+    }
+  }
+  &-logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    img {
+      width: 100px;
+      height: auto;
+      @include lg {
+        width: 70px;
+      }
+      @include xs {
+        width: 60px;
+      }
+    }
+    h1 {
+      font-weight: 700;
+      margin-bottom: 3px;
+      padding-left: 8px;
+      color: #228b22;
+      @include lg {
+        font-size: 12px;
+      }
+      @include xs {
+        font-size: 10px;
+      }
+    }
+    .img-fix {
+      @include lg {
+        width: 150px !important;
+      }
+      @include xs {
+        width: 130px !important;
+      }
+    }
+  }
+  &-search {
+    @include lg {
+      display: none;
+    }
+  }
+  &-searchbar {
+    display: flex;
+    align-items: center;
+
+    a {
+      border: 1px solid #228b22;
+      width: 30px;
+      padding: 5px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #228b22;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+  &-keywords {
+    margin-top: 10px;
+    span {
+      font-size: 10px;
+      border: 1px solid #dcdcdc;
+      padding: 4px;
+      border-radius: 20px;
+      color: #696969;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+  &-sidebar {
+    background-color: #5b8e23;
+    padding: 10px 11%;
+    @include xxl {
+      padding: 10px 21% 10px 21%;
+    }
+    @include lg {
+      display: none;
+    }
+    a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    a ~ a {
+      margin-left: 6%;
+    }
+    span {
+      font-weight: 550;
+    }
+  }
+
+  &-fixed {
+    top: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 99;
+    transition: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+  }
+}
+
+.anticon-down {
+  font-size: 11px;
+  margin-bottom: 3px;
+  margin-left: -3px;
+}

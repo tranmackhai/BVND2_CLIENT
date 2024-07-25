@@ -1,0 +1,109 @@
+@import "../../styles/index.scss";
+.news {
+  margin-top: 48px;
+  &-box {
+    width: 96% !important;
+    background-color: #caff70;
+    border: 1px solid #cd950c;
+
+    @include lg {
+      width: 93% !important;
+    }
+
+    @include md {
+      width: 90% !important;
+    }
+  }
+  &-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      color: #cd950c;
+      @include md {
+        padding-left: 4px !important;
+        font-size: 18px;
+      }
+    }
+
+    div {
+      background-color: #f5f5f5;
+      border: 1px solid #cd950c;
+      padding: 0px 12px;
+      padding-top: 15px;
+      padding-bottom: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      @include xs {
+        padding: 0px 8px;
+        padding-top: 12px;
+        padding-bottom: 2px;
+      }
+      &:hover {
+        opacity: 0.7;
+      }
+
+      p {
+        font-size: 11px;
+        color: #cd950c;
+      }
+
+      i {
+        padding-left: 4px;
+        color: #cd950c;
+        font-size: 11px;
+      }
+    }
+  }
+  &-list {
+    border: 1px solid #cd950c;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 24px 12px 1px;
+    min-height: 200px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &-time {
+      font-size: 12px;
+      color: #828282;
+    }
+    &-title {
+      font-weight: 600;
+      margin-top: 6px;
+      font-size: 14px;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      color: #000;
+      -webkit-line-clamp: 2;
+    }
+    &-content {
+      margin-top: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-height: 1.5;
+      color: #000;
+    }
+    &-check {
+      font-weight: 600;
+      margin-top: 16px;
+      font-size: 14px;
+      color: #696969;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}

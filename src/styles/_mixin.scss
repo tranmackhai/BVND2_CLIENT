@@ -1,0 +1,54 @@
+@mixin xxl {
+  @media only screen and (min-width: 1600px) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media only screen and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media only screen and (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media only screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media only screen and (max-width: 576px) {
+    @content;
+  }
+}
+
+@mixin applyBorderStyles($color) {
+  .department-border {
+    border: solid $color 2px;
+  }
+
+  .department-border::after {
+    border: solid $color 5px;
+    border-top: solid transparent 5px;
+    @include xs {
+      border-top: solid $color 5px;
+    }
+  }
+
+  .department-button {
+    background-color: $color;
+  }
+}
+
+$themes: (
+  "orange": #ee9a00,
+  "blue": #1e90ff,
+  "red": #e54646,
+  "green": #32cd32,
+);

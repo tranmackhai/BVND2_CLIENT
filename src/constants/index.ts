@@ -1,0 +1,13 @@
+const BASE_URL = {
+  BASE_URL: "http://localhost:4646/api",
+  BASE_URL_IMAGE: "http://localhost:4646",
+};
+
+const STATUS = {
+  SUCCESS: 200,
+  CREATED: 201,
+  NOT_FOUNT: 404,
+  BAD_REQUEST: 400,
+};
+
+export { STATUS, BASE_URL };

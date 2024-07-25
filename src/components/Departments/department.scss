@@ -1,0 +1,255 @@
+@import "../../styles/index.scss";
+
+.department {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &-fix {
+    display: none;
+
+    @include lg {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      padding-bottom: 16px;
+    }
+    @include xs {
+      display: none;
+    }
+  }
+  &-quick {
+    background-color: #dddddd;
+    border: 1px solid rgba(159, 182, 205);
+    display: flex;
+    width: 96% !important;
+    @include lg {
+      width: 93% !important;
+    }
+
+    @include md {
+      width: 90% !important;
+    }
+  }
+  &-list-button {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-right: 8px;
+
+    @include xxl {
+      padding-bottom: 0;
+    }
+    @include lg {
+      display: none;
+    }
+  }
+  &-buttons {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    @include xxl {
+      width: 120px;
+      height: 120px;
+    }
+
+    @include xs {
+      width: 60px;
+      height: 60px;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  &-border {
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include xxl {
+      width: 111px;
+      height: 111px;
+    }
+    @include xs {
+      width: 50px;
+      height: 50px;
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      width: 94px;
+      height: 94px;
+      border-radius: 50%;
+      transform: rotate(45deg);
+
+      @include xxl {
+        width: 115px;
+        height: 115px;
+      }
+      @include xs {
+        width: 55px;
+        height: 55px;
+      }
+    }
+  }
+  &-button {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #fff;
+    flex-direction: column;
+    @include xxl {
+      width: 100px;
+      height: 100px;
+    }
+    @include xs {
+      width: 40px;
+      height: 40px;
+    }
+
+    i {
+      font-size: 28px;
+      padding-top: 12px;
+
+      @include xxl {
+        padding-top: 22px;
+      }
+      @include xs {
+        font-size: 16px;
+      }
+    }
+
+    p {
+      font-size: 11px;
+      padding-top: 6px;
+      font-weight: 600;
+      text-align: center;
+      @include xs {
+        display: none;
+      }
+    }
+  }
+  &-departments {
+    width: 70%;
+    @include lg {
+      width: 100%;
+    }
+
+    h2 {
+      color: #ee6aa7;
+    }
+  }
+  &-department {
+    border-radius: 12px;
+    background-color: #dddddd;
+    border: 1px solid #ee6aa7;
+    padding-bottom: 6px;
+    @include md {
+      margin-bottom: 8px;
+      padding-bottom: 0px;
+      cursor: pointer;
+      .down-fix {
+        display: inline-block;
+        font-size: 14px;
+        margin-left: 4px;
+      }
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    h3 {
+      padding: 10px 0;
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      background-color: #ee6aa7;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      margin-bottom: 0;
+
+      @include md {
+        border-radius: 10px;
+      }
+    }
+
+    p {
+      font-size: 13px;
+      color: #000;
+      background-color: white;
+      border-bottom: 1px solid #ee6aa7;
+      padding: 0px 5px;
+      line-height: 2;
+      margin-bottom: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+
+      @include md {
+        display: none;
+      }
+    }
+  }
+}
+
+@each $theme, $color in $themes {
+  .bg-#{$theme} {
+    @include applyBorderStyles($color);
+  }
+}
+
+.active {
+  @include md {
+    padding-bottom: 6px !important;
+    margin-bottom: 8px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+
+    .down-fix {
+      transform: rotate(180deg);
+    }
+
+    h3 {
+      border-radius: 0;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;  
+    }
+    p {
+      display: -webkit-box;
+    }
+  }
+}
+
+.down-fix {
+  display: none;
+}
+
+.link-list {
+  p {
+    margin-top: 2px;
+
+  }
+}

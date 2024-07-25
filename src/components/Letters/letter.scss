@@ -1,0 +1,76 @@
+@import "../../styles/index.scss";
+
+.letter {
+  margin-top: 36px;
+  &-box {
+    width: 96% !important;
+    background-color: #cccc99;
+    border: 1px solid #228b22;
+    padding-bottom: 6px !important;
+
+    @include lg {
+      width: 93% !important;
+    }
+
+    @include md {
+      width: 90% !important;
+    }
+
+    h2 {
+      padding-left: 18px !important;
+      color: #669900;
+
+      @include md {
+        padding-left: 4px !important;
+        font-size: 18px;
+      }
+    }
+  }
+  &-list {
+    border: 1px solid #228b22;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 6px;
+    cursor: pointer;
+    min-height: 290px;
+
+    @include lg {
+      height: auto;
+    }
+
+    .img {
+      height: 200px;
+      object-fit: cover;
+      object-position: center top;
+      image-rendering: crisp-edges;
+
+      @include lg {
+        height: 300px;
+      }
+
+      img {
+        width: 100%;
+      }
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    p {
+      font-size: 12px;
+      margin: 12px 0 8px;
+    }
+    h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #228b22;
+      overflow: hidden;
+      line-height: 1.5;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+  }
+}

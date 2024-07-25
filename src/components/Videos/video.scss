@@ -1,0 +1,83 @@
+@import "../../styles/index.scss";
+.video {
+  margin-top: 36px;
+  &-yt {
+    width: 96% !important;
+    background-color: #b0e0e6;
+    border: 1px solid rgba(159, 182, 205);
+
+    @include lg {
+      width: 93% !important;
+    }
+
+    @include md {
+      width: 90% !important;
+    }
+    h2 {
+      padding-left: 22px !important;
+      color: #1c86ee;
+      @include md {
+        padding-left: 6px !important;
+        font-size: 18px;
+      }
+    }
+
+    &-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      iframe {
+        @include xl {
+          height: "350px" !important;
+        }
+      }
+
+      p {
+        font-size: 12px;
+        margin-top: 12px;
+        color: #696969;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+      }
+    }
+  }
+}
+
+.none {
+  @include lg {
+    display: none;
+  }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #fff !important;
+}
+
+.iframe-wrapper {
+  position: relative;
+  width: 80%;
+  height: 130px;
+  padding-top: 36.25%;
+  overflow: hidden;
+
+  @include md {
+    width: 95%;
+    height: 180px;
+    padding-top: 51.25%;
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
