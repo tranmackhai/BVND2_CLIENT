@@ -88,7 +88,7 @@ const Service: React.FC = () => {
                     <div
                       className="service"
                       style={{
-                        backgroundImage: `url(http://192.168.61.1:4646${firstActivePost.thumbnail.replace(
+                        backgroundImage: `url(${BASE_URL.BASE_URL_IMAGE}${firstActivePost.thumbnail.replace(
                           /\\/g,
                           "/"
                         )})`,
@@ -108,7 +108,7 @@ const Service: React.FC = () => {
                           className="service-outstanding"
                           style={{
                             backgroundImage: post.thumbnail
-                              ? `url(http://192.168.61.1:4646${post.thumbnail.replace(
+                              ? `url(${BASE_URL.BASE_URL_IMAGE}${post.thumbnail.replace(
                                   /\\/g,
                                   "/"
                                 )})`
