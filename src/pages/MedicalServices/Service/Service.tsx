@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Col, Row, Spin, Pagination } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./service.scss";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { usePosts } from "../../../hooks/usePost";
-import { format } from "date-fns"; // Import format function from date-fns
-import ReactHtmlParser from "react-html-parser"; // Import react-html-parser
+import { format } from "date-fns"; 
+import ReactHtmlParser from "react-html-parser"; 
 import { BASE_URL } from "../../../constants";
-
 
 type TPostsDto = {
   title: string;
@@ -24,44 +23,41 @@ const Service: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const groupCategorySlug = location.pathname.split("/")[2];
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 16;
+  const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(16);
 
   const { posts, refetch, isLoading } = usePosts({
+    isActive: true,
+    page,
+    pageSize,
     groupCategorySlug,
   });
 
+  const handleChangPage = useCallback((page: number, pageSize: number) => {
+    setPage(page);
+    setPageSize(pageSize);
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     refetch();
-  }, []);
+  }, [page, pageSize, refetch]);
 
   if (isLoading) {
     return <Spin />;
   }
 
-  const filteredPosts = posts?.data?.data.filter(
-    (post: TPostsDto) => post.isActive
-  );
-
   const firstActivePost = posts?.data?.data.find(
     (post: TPostsDto) => post.isActive
   );
-
-  const handlePageChange = (page: number): void => {
-    setCurrentPage(page);
-    window.scrollTo(0, 0);
-  };
 
   const activePosts = posts?.data?.data.filter(
     (post: TPostsDto) => post.isActive
   );
 
-  const postsFromSecond = activePosts.slice(1, 5); // Lấy từ index 1 đến index 4 (4 bài viết)
+  const postsFromSecond = activePosts.slice(1, 5); 
 
-  // Calculate start and end index for pagination
-  const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const currentPosts = filteredPosts.slice(startIndex, endIndex);
+  console.log(posts?.data);
 
   return (
     <HelmetProvider>
@@ -88,10 +84,10 @@ const Service: React.FC = () => {
                     <div
                       className="service"
                       style={{
-                        backgroundImage: `url(${BASE_URL.BASE_URL_IMAGE}${firstActivePost.thumbnail.replace(
+                        backgroundImage: `url('http://192.168.61.1:4646/${firstActivePost.thumbnail.replace(
                           /\\/g,
                           "/"
-                        )})`,
+                        )}')`,
                       }}
                     >
                       {firstActivePost.title}
@@ -108,10 +104,10 @@ const Service: React.FC = () => {
                           className="service-outstanding"
                           style={{
                             backgroundImage: post.thumbnail
-                              ? `url(${BASE_URL.BASE_URL_IMAGE}${post.thumbnail.replace(
+                              ? `url('http://192.168.61.1:4646/${post.thumbnail.replace(
                                   /\\/g,
                                   "/"
-                                )})`
+                                )}')`
                               : undefined,
                           }}
                         >
@@ -125,7 +121,7 @@ const Service: React.FC = () => {
             </Row>
           </div>
           <Row gutter={[32, 32]}>
-            {currentPosts.map((post: TPostsDto, index: number) => (
+            {posts?.data.data.map((post: TPostsDto, index: number) => (
               <Col
                 key={index}
                 lg={{ span: 6 }}
@@ -139,7 +135,7 @@ const Service: React.FC = () => {
                 >
                   <div className="service-box">
                     <img
-                      src={`${BASE_URL.BASE_URL_IMAGE}:4646${post.thumbnail}`}
+                      src={`${BASE_URL.BASE_URL_IMAGE}${post.thumbnail}`}
                       alt={post.title}
                     />
                     <p className="service-time">
@@ -163,11 +159,13 @@ const Service: React.FC = () => {
           }}
         >
           <Pagination
-            current={currentPage}
-            total={filteredPosts.length}
+            style={{ marginTop: "12px" }}
+            current={page}
             pageSize={pageSize}
-            showSizeChanger={false}
-            onChange={handlePageChange}
+            onChange={(page: number, pageSize: number) => {
+              handleChangPage(page, pageSize);
+            }}
+            total={posts?.data.meta?.totalPosts}
           />
         </div>
       </div>
