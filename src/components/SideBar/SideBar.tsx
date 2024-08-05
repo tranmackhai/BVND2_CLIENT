@@ -28,7 +28,7 @@ const SideBar: React.FC = () => {
     groupCategorySlug: "",
   });
 
-  // console.log(posts?.data.data);
+  console.log(posts?.data.data);
 
   if (isLoading) {
     return <Spin />;

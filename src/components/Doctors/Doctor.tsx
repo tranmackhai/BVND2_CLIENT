@@ -5,6 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Spin } from "antd";
 import "./doctor.scss";
 import { useDoctor } from "../../hooks/useDoctor";
+import { BASE_URL } from "../../constants";
+
 
 export type DoctorItem = {
   image: string;
@@ -75,7 +77,7 @@ const Doctors: React.FC = () => {
               <SwiperSlide key={index}>
                 <div className="doctors-list">
                   <img
-                    src={`http://localhost:4646${item.image}`}
+                    src={`${BASE_URL.BASE_URL_IMAGE}${item.image}`}
                     alt={`Hình ảnh của ${item.name}`}
                   />
                   <h3>{item.name}</h3>

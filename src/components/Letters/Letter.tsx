@@ -7,6 +7,7 @@ import { Pagination } from "swiper/modules";
 import "./letter.scss";
 import { usePosts } from "../../hooks/usePost";
 import { format } from "date-fns";
+import { BASE_URL } from "../../constants";
 
 type TPostsDto = {
   title: string;
@@ -73,7 +74,7 @@ const Letter: React.FC = () => {
                 <div className="letter-list">
                   <Image
                     className="img"
-                    src={`http://localhost:4646${post.thumbnail}`}
+                    src={`${BASE_URL.BASE_URL_IMAGE}${post.thumbnail}`}
                     alt={`Hình ảnh của ${post.title}`}
                     width="100%"
                     preview={{

@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Col, Row, Spin, Pagination } from "antd";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import SideBar from "../../../components/SideBar";
 import { usePosts } from "../../../hooks/usePost";
 import "./specialist.scss";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { format } from "date-fns"; // Import format function from date-fns
 import ReactHtmlParser from "react-html-parser"; // Import react-html-parser
+import { BASE_URL } from "../../../constants";
 
 interface SpecialistProps {
   specialty: string;
@@ -50,20 +51,6 @@ const Specialist = ({ specialty }: SpecialistProps) => {
     refetch();
   }, []);
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const specialtyParam = params.get("specialty") as Specialty;
-    if (specialtyParam) {
-      setCurrentSpecialty(specialtyParam);
-    }
-  }, [location.search]);
-
-  const handleSpecialtyClick = (specialty: Specialty, path: string) => {
-    setCurrentSpecialty(specialty);
-    setCurrentPage(1);
-    navigate(`${path}?specialty=${specialty}`);
-  };
-
   if (isLoading) {
     return <Spin />;
   }
@@ -87,8 +74,7 @@ const Specialist = ({ specialty }: SpecialistProps) => {
 
     if (currentSpecialty) {
       filteredData = filteredData?.filter(
-        (post: TPostsDto) =>
-          post.isActive && post.postCategory === currentSpecialty
+        (post: TPostsDto) => post.postCategory === currentSpecialty
       );
     } else {
       filteredData = filteredData?.filter((post: TPostsDto) => post.isActive);
@@ -129,12 +115,13 @@ const Specialist = ({ specialty }: SpecialistProps) => {
                 <Col span={8}>
                   <div
                     className="specialist-button"
-                    onClick={() =>
-                      handleSpecialtyClick(
-                        Specialty.SurgicalSpecialty,
+                    onClick={() => {
+                      setCurrentSpecialty(Specialty.SurgicalSpecialty);
+                      setCurrentPage(1);
+                      navigate(
                         "/kham-chua-benh/cac-chuyen-khoa/chuyen-khoa-ngoai"
-                      )
-                    }
+                      );
+                    }}
                   >
                     Chuyên khoa ngoại
                   </div>
@@ -142,12 +129,13 @@ const Specialist = ({ specialty }: SpecialistProps) => {
                 <Col span={8}>
                   <div
                     className="specialist-button"
-                    onClick={() =>
-                      handleSpecialtyClick(
-                        Specialty.InternalMedicine,
+                    onClick={() => {
+                      setCurrentSpecialty(Specialty.InternalMedicine);
+                      setCurrentPage(1);
+                      navigate(
                         "/kham-chua-benh/cac-chuyen-khoa/chuyen-khoa-noi"
-                      )
-                    }
+                      );
+                    }}
                   >
                     Chuyên khoa nội
                   </div>
@@ -155,12 +143,11 @@ const Specialist = ({ specialty }: SpecialistProps) => {
                 <Col span={8}>
                   <div
                     className="specialist-button"
-                    onClick={() =>
-                      handleSpecialtyClick(
-                        Specialty.InternalMedicine,
-                        "/kham-chua-benh/cac-chuyen-khoa/can-lam-sang"
-                      )
-                    }
+                    onClick={() => {
+                      setCurrentSpecialty(Specialty.ClinicalMedicine);
+                      setCurrentPage(1);
+                      navigate("/kham-chua-benh/cac-chuyen-khoa/can-lam-sang");
+                    }}
                   >
                     Cận lâm sàng
                   </div>
@@ -168,36 +155,30 @@ const Specialist = ({ specialty }: SpecialistProps) => {
               </Row>
               <div>
                 {slicedData?.map((post: TPostsDto, index: number) => (
-                  <Link
-                    to={`/kham-chua-benh/cac-chuyen-khoa/${post.slug}`}
+                  <div
                     key={index}
-                    style={{ color: "#000" }}
+                    onClick={() => {
+                      navigate(`/kham-chua-benh/cac-chuyen-khoa/${post.slug}`);
+                    }}
                   >
-                    <div
-                      className="specialist-box"
-                      style={{ maxHeight: "102px" }}
-                    >
-                      <p
-                        style={{
-                          fontSize: "12px",
-                          color: "#808080",
-                          marginBottom: "0.5rem",
-                        }}
-                      >
-                        {format(new Date(post.updatedAt), "dd/MM/yyyy")}{" "}
-                        {/* Định dạng ngày */}
-                      </p>
-                      <p style={{ fontWeight: "700", marginBottom: "0.5rem" }}>
-                        {post.title}
-                      </p>
-                      <p
-                        className="specialist-content"
-                        style={{ maxHeight: "32px" }}
-                      >
-                        {ReactHtmlParser(post.content)}
-                      </p>
+                    <div className="box-list">
+                      <div className="box-list-img">
+                        <img
+                          src={`${BASE_URL.BASE_URL_IMAGE}${post.thumbnail}`}
+                        />
+                      </div>
+                      <div className="box-list-content">
+                        <p className="box-list-content-date">
+                          {" "}
+                          {format(new Date(post.updatedAt), "dd/MM/yyyy")}{" "}
+                        </p>
+                        <p className="box-list-content-title">{post.title}</p>
+                        <div className="box-list-content-summary">
+                          {ReactHtmlParser(post.content)}
+                        </div>
+                      </div>
                     </div>
-                  </Link>
+                  </div>
                 ))}
                 <Pagination
                   style={{ marginTop: "12px" }}
