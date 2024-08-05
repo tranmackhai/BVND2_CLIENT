@@ -6,7 +6,7 @@ const BASE_URL = {
 const STATUS = {
   SUCCESS: 200,
   CREATED: 201,
-  NOT_FOUNT: 404,
+  NOT_FOUND: 404,
   BAD_REQUEST: 400,
 };
 
