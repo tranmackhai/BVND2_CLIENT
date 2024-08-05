@@ -32,6 +32,7 @@ import { TRoute } from "../types/index";
 import Article from "../pages/Article";
 import Search from "../pages/Search";
 import NotFound from "../pages/NotFound";
+import ArticleSearch from "../pages/ArticleSearch";
 
 const routes: TRoute[] = [
   {
@@ -317,8 +318,8 @@ const routes: TRoute[] = [
     ],
   },
   {
-    path: "/:title",
-    element: Article,
+    path: "/:slug",
+    element: ArticleSearch,
     layout: PageLayout,
   },
   {

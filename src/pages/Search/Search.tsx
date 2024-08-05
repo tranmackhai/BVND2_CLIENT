@@ -11,13 +11,13 @@ import thumnail_default from "../../assets/images/thumbnail_default.png";
 const Search: React.FC = () => {
   const location = useLocation();
   const keyword = decodeURIComponent(location.pathname.split("/")[2] || "");
-  // console.log("🚀 ~ keyword:", keyword);
+  console.log("🚀 ~ keyword:", keyword);
 
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
 
   const { posts, isLoading } = usePosts({ keyword, isActive: true });
-  // console.log("🚀 ~ posts:", posts?.data.data);
+  console.log("🚀 ~ posts:", posts?.data.data);
 
   const handleChangPage = useCallback((page: number, pageSize: number) => {
     setPage(page);
