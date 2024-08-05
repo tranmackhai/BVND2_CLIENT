@@ -47,6 +47,7 @@ const usePosts = (payload: TUsePostDto) => {
     enabled:
       !isNil(payload.slug) ||
       !isNil(payload.page) ||
+      !isNil(payload.keyword) ||
       !isNil(payload.groupCategorySlug),
   });
 
