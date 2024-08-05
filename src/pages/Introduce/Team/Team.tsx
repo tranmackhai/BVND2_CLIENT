@@ -8,6 +8,8 @@ import "swiper/css/pagination";
 import { Spin } from "antd";
 import { useDoctor } from "../../../hooks/useDoctor";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { BASE_URL } from "../../../constants";
+
 
 export type DoctorItem = {
   image: string;
@@ -138,7 +140,7 @@ const Team: React.FC = () => {
                         style={{ marginBottom: "12px" }}
                       >
                         <img
-                          src={`http://localhost:4646${doctor.image}`}
+                          src={`${BASE_URL.BASE_URL_IMAGE}${doctor.image}`}
                           alt={doctor.name}
                         />
                         <h3>{doctor.name}</h3>

@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Col, Row, Spin, Pagination } from "antd";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./service.scss";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { usePosts } from "../../../hooks/usePost";
 import { format } from "date-fns"; // Import format function from date-fns
 import ReactHtmlParser from "react-html-parser"; // Import react-html-parser
+import { BASE_URL } from "../../../constants";
+
 
 type TPostsDto = {
   title: string;
@@ -19,6 +21,7 @@ type TPostsDto = {
 };
 
 const Service: React.FC = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const groupCategorySlug = location.pathname.split("/")[2];
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,7 +88,7 @@ const Service: React.FC = () => {
                     <div
                       className="service"
                       style={{
-                        backgroundImage: `url(http://localhost:4646${firstActivePost.thumbnail.replace(
+                        backgroundImage: `url(${BASE_URL.BASE_URL_IMAGE}${firstActivePost.thumbnail.replace(
                           /\\/g,
                           "/"
                         )})`,
@@ -105,7 +108,7 @@ const Service: React.FC = () => {
                           className="service-outstanding"
                           style={{
                             backgroundImage: post.thumbnail
-                              ? `url(http://localhost:4646${post.thumbnail.replace(
+                              ? `url(${BASE_URL.BASE_URL_IMAGE}${post.thumbnail.replace(
                                   /\\/g,
                                   "/"
                                 )})`
@@ -129,21 +132,25 @@ const Service: React.FC = () => {
                 md={{ span: 8 }}
                 sm={{ span: 12 }}
               >
-                <Link to={`/kham-chua-benh/dich-vu-noi-bat/${post.slug}`}>
+                <div
+                  onClick={() => {
+                    navigate(`/kham-chua-benh/dich-vu-noi-bat/${post.slug}`);
+                  }}
+                >
                   <div className="service-box">
                     <img
-                      src={`http://localhost:4646${post.thumbnail}`}
+                      src={`${BASE_URL.BASE_URL_IMAGE}:4646${post.thumbnail}`}
                       alt={post.title}
                     />
                     <p className="service-time">
                       {format(new Date(post.updatedAt), "dd/MM/yyyy")}{" "}
                     </p>
                     <p className="service-title">{post.title}</p>
-                    <p className="service-content">
+                    <div className="service-content">
                       {ReactHtmlParser(post.content)}
-                    </p>
+                    </div>
                   </div>
-                </Link>
+                </div>
               </Col>
             ))}
           </Row>

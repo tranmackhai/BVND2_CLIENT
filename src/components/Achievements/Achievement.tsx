@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Spin } from "antd";
 import "swiper/css";
 import { useStatistical } from "../../hooks/useStatistical";
+import { BASE_URL } from "../../constants";
 
 interface StatisticalItem {
   icon: string;
@@ -56,7 +57,7 @@ const Achievement: React.FC = () => {
                         width: "101px",
                         height: "101px",
                       }}
-                      src={`http://localhost:4646${item.icon}`}
+                      src={`${BASE_URL.BASE_URL_IMAGE}${item.icon}`}
                       alt={item.title}
                     />
                   </div>

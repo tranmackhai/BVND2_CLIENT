@@ -34,15 +34,15 @@ const Article: React.FC = () => {
 
   const openFileInNewTab = (fileUrl: string) => {
     // Use fetch to get the file as blob
-    fetch(`http://localhost:4646${fileUrl}`)
-      .then(response => response.blob())
-      .then(blob => {
+    fetch(`http://192.168.61.1:4646${fileUrl}`)
+      .then((response) => response.blob())
+      .then((blob) => {
         // Create a blob URL
         const url = URL.createObjectURL(blob);
         // Open the blob URL in a new tab
-        window.open(url, '_blank');
+        window.open(url, "_blank");
       })
-      .catch(error => console.error('Error opening file:', error));
+      .catch((error) => console.error("Error opening file:", error));
   };
 
   console.log(post);
@@ -86,7 +86,7 @@ const Article: React.FC = () => {
                   marginBottom: "16px",
                 }}
               >
-                <p
+                <div
                   style={{
                     marginBottom: "0",
                     color: "#555555",
@@ -95,26 +95,25 @@ const Article: React.FC = () => {
                 >
                   <ClockCircleOutlined />{" "}
                   <span>{format(new Date(post.updatedAt), "dd/MM/yyyy")}</span>
-                </p>
+                </div>
               </div>
               <div className="article">
                 {ReactHtmlParser(post.content, {
                   transform: (node) => {
-                    if (
-                      node.type === "tag" &&
-                      node.name === "img" &&
-                      node.attribs
-                    ) {
-                      return (
-                        <Image
-                          key={node.attribs.src}
-                          src={node.attribs.src}
-                          alt={node.attribs.alt || ""}
-                          style={{ maxWidth: "100%" }}
-                        />
-                      );
+                    if (node.type === "tag") {
+                      if (node.name === "img" && node.attribs) {
+                        return (
+                          <Image
+                            key={node.attribs.src}
+                            src={node.attribs.src}
+                            alt={node.attribs.alt || ""}
+                            style={{ maxWidth: "100%" }}
+                          />
+                        );
+                      }
+                      // Kiểm tra các thẻ khác nếu cần thiết
                     }
-                    return undefined;
+                    return undefined; // Trả về undefined cho các node không cần xử lý
                   },
                 })}
               </div>
@@ -146,7 +145,7 @@ const Article: React.FC = () => {
                     marginBottom: "24px",
                   }}
                 >
-                  Đăng bởi: <strong>Bệnh viện nhi đồng 2</strong>
+                  {/* Đăng bởi: <strong>Bệnh viện nhi đồng 2</strong> */}
                 </p>
                 <div className="sharethis-inline-share-buttons"></div>
                 <NewPost />

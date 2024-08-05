@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 import { useBanner } from "../../hooks/useBanner";
 import { Pagination, Autoplay } from "swiper/modules";
 import "./carousel.scss";
+import { BASE_URL } from "../../constants";
 
 export type BannerItem = {
   image: string;
@@ -45,7 +46,7 @@ const CustomCarousel: React.FC = () => {
           filteredBanners.map((item: BannerItem, index: number) => (
             <SwiperSlide key={index}>
               <img
-                src={`http://localhost:4646${item.image}`}
+                src={`${BASE_URL.BASE_URL_IMAGE}${item.image}`}
                 alt={`Hình ảnh ${item.displayName}`}
               />
             </SwiperSlide>
