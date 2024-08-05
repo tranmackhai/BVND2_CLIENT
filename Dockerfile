@@ -17,7 +17,7 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # Cấu hình Nginx để xử lý routing của SPA
 RUN echo '                                    \
   server {                                      \
-  listen 2323;                              \
+  listen 4623;                              \
   location / {                              \
   root /usr/share/nginx/html;           \
   index index.html index.htm;           \
@@ -25,6 +25,6 @@ RUN echo '                                    \
   }                                         \
   }' > /etc/nginx/conf.d/default.conf
 
-EXPOSE 2323
+EXPOSE 4623
 
 CMD ["nginx", "-g", "daemon off;"]
