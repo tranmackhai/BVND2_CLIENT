@@ -8,7 +8,6 @@ import { format } from "date-fns"; // Import format function from date-fns
 import ReactHtmlParser from "react-html-parser"; // Import react-html-parser
 import { BASE_URL } from "../../../constants";
 
-
 type TPostsDto = {
   title: string;
   content: string;
@@ -63,6 +62,8 @@ const Service: React.FC = () => {
   const endIndex = startIndex + pageSize;
   const currentPosts = filteredPosts.slice(startIndex, endIndex);
 
+  console.log(posts?.data);
+
   return (
     <HelmetProvider>
       <div>
@@ -88,10 +89,10 @@ const Service: React.FC = () => {
                     <div
                       className="service"
                       style={{
-                        backgroundImage: `url(${BASE_URL.BASE_URL_IMAGE}${firstActivePost.thumbnail.replace(
+                        backgroundImage: `url('http://192.168.61.1:4646/${firstActivePost.thumbnail.replace(
                           /\\/g,
                           "/"
-                        )})`,
+                        )}')`,
                       }}
                     >
                       {firstActivePost.title}
@@ -108,10 +109,10 @@ const Service: React.FC = () => {
                           className="service-outstanding"
                           style={{
                             backgroundImage: post.thumbnail
-                              ? `url(${BASE_URL.BASE_URL_IMAGE}${post.thumbnail.replace(
+                              ? `url('http://192.168.61.1:4646/${post.thumbnail.replace(
                                   /\\/g,
                                   "/"
-                                )})`
+                                )}')`
                               : undefined,
                           }}
                         >
@@ -139,7 +140,7 @@ const Service: React.FC = () => {
                 >
                   <div className="service-box">
                     <img
-                      src={`${BASE_URL.BASE_URL_IMAGE}:4646${post.thumbnail}`}
+                      src={`${BASE_URL.BASE_URL_IMAGE}${post.thumbnail}`}
                       alt={post.title}
                     />
                     <p className="service-time">
