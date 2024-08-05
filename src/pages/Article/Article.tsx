@@ -45,7 +45,6 @@ const Article: React.FC = () => {
       .catch((error) => console.error("Error opening file:", error));
   };
 
-  console.log(post);
   return (
     <HelmetProvider>
       {post && (

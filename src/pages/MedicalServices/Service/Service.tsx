@@ -57,8 +57,6 @@ const Service: React.FC = () => {
 
   const postsFromSecond = activePosts.slice(1, 5); 
 
-  console.log(posts?.data);
-
   return (
     <HelmetProvider>
       <div>
