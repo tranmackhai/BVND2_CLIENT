@@ -35,7 +35,6 @@ const Specialist = ({ specialty }: SpecialistProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const groupCategorySlug = location.pathname.split("/")[2];
-  // const [keyword, setKeyword] = useState("");
   const [currentSpecialty, setCurrentSpecialty] = useState<Specialty | null>(
     null
   );

@@ -13,11 +13,7 @@ const Footer: React.FC = () => {
             margin: "12px auto 18px 0",
           }}
         />
-        <Row
-          gutter={[16, 8]}
-          justify="space-between"
-          align="middle"
-        >
+        <Row gutter={[16, 8]} justify="space-between" align="middle">
           <Col md={{ span: 8 }} className="footer-contact fixed">
             <p style={{ marginBottom: "8px" }}>
               Địa chỉ: 14 Lý Tự Trọng, Phường Bến Nghé, Quận 1, TP. HCM
@@ -31,7 +27,7 @@ const Footer: React.FC = () => {
             </p>
             <p>
               <i className="fa-solid fa-envelope"></i> Email:
-              benhviennhi@benhviennhi.org.vn
+              <a>benhviennhi@benhviennhi.org.vn</a>
             </p>
             <hr
               style={{
@@ -93,7 +89,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="footer-copyright">
         <p>
-          Copyright 2024 © <b>Bệnh viện Nhi Đồng 2</b> 
+          Copyright 2024 © <b>Bệnh viện Nhi Đồng 2</b>
         </p>
       </div>
     </footer>

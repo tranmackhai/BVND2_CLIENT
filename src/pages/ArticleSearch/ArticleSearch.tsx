@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { ClockCircleOutlined, FileSyncOutlined } from "@ant-design/icons";
 import { Image, Spin } from "antd";
 import { usePosts } from "../../hooks/usePost";
@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import ReactHtmlParser from "react-html-parser";
 
 const ArticleSearch: React.FC = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const groupCategorySlug = location.pathname.split("/")[2];
 
@@ -138,12 +139,14 @@ const ArticleSearch: React.FC = () => {
                 <p
                   style={{
                     fontWeight: 500,
-                    fontSize: "16px",
+                    fontSize: "15px",
                     textAlign: "right",
                     marginBottom: "24px",
+                    cursor: "pointer",
                   }}
+                  onClick={() => navigate(-1)}
                 >
-                  {/* Đăng bởi: <strong>Bệnh viện nhi đồng 2</strong> */}
+                  Quay lại
                 </p>
                 <div className="sharethis-inline-share-buttons"></div>
                 {/* <NewPost /> */}
