@@ -1,9 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { doctorApi } from "../apis/modules/doctorApi";
 import { isNil } from "lodash";
-import { IQueryParams } from "../types/common.type";
+import { doctorApi } from "../apis/modules/doctorApi";
 
-const useDoctor = (payload: IQueryParams) => {
+export type TUseDoctorDto = {
+  id?: number;
+  page?: number;
+  pageSize?: number;
+  keyword?: string;
+};
+
+const useDoctor = (payload: TUseDoctorDto) => {
   //getAll + search
   const {
     data: doctors,
@@ -12,9 +18,13 @@ const useDoctor = (payload: IQueryParams) => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["doctors"],
+    queryKey: ["doctors", payload.page, payload.pageSize, payload.keyword],
     queryFn: async () => {
-      const response = await doctorApi.getAll({});
+      const response = await doctorApi.getAll({
+        page: payload.page,
+        pageSize: payload.pageSize,
+        keyword: payload.keyword,
+      });
       const { data } = response;
       return { data };
     },
@@ -31,8 +41,6 @@ const useDoctor = (payload: IQueryParams) => {
       const { data } = response;
       return { data };
     },
-    refetchOnWindowFocus: false,
-    enabled: !isNil(payload.id),
   });
 
   return {

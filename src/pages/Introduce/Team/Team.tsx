@@ -10,7 +10,6 @@ import { useDoctor } from "../../../hooks/useDoctor";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { BASE_URL } from "../../../constants";
 
-
 export type DoctorItem = {
   image: string;
   name: string;
@@ -32,7 +31,12 @@ const { Search } = Input;
 const Team: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const { doctors, isLoading, refetch } = useDoctor({});
+  const page = 1;
+  const pageSize = 500; 
+  const { doctors, isLoading, refetch } = useDoctor({
+    page,
+    pageSize,
+  });
 
   useEffect(() => {
     refetch();

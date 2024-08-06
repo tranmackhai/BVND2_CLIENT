@@ -7,7 +7,6 @@ import "./doctor.scss";
 import { useDoctor } from "../../hooks/useDoctor";
 import { BASE_URL } from "../../constants";
 
-
 export type DoctorItem = {
   image: string;
   name: string;
@@ -23,7 +22,12 @@ enum Specialty {
 }
 
 const Doctors: React.FC = () => {
-  const { doctors, isLoading, refetch } = useDoctor({});
+  const page = 1;
+  const pageSize = 500;
+  const { doctors, isLoading, refetch } = useDoctor({
+    page,
+    pageSize,
+  });
 
   useEffect(() => {
     refetch();
