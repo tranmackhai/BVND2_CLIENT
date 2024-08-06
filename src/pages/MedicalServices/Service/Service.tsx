@@ -4,8 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./service.scss";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { usePosts } from "../../../hooks/usePost";
-import { format } from "date-fns"; 
-import ReactHtmlParser from "react-html-parser"; 
+import { format } from "date-fns";
+import ReactHtmlParser from "react-html-parser";
 import { BASE_URL } from "../../../constants";
 
 type TPostsDto = {
@@ -55,7 +55,7 @@ const Service: React.FC = () => {
     (post: TPostsDto) => post.isActive
   );
 
-  const postsFromSecond = activePosts.slice(1, 5); 
+  const postsFromSecond = activePosts.slice(1, 5);
 
   return (
     <HelmetProvider>
@@ -72,52 +72,56 @@ const Service: React.FC = () => {
           <p>Dịch Vụ</p>
         </div>
         <div className="posts-box" style={{ backgroundColor: "transparent" }}>
-          <div className="fix-none" style={{ marginBottom: "24px" }}>
-            <Row gutter={[24, 24]}>
-              <Col span={12}>
-                {firstActivePost && (
-                  <Link
-                    to={`/kham-chua-benh/dich-vu-noi-bat/${firstActivePost.slug}`}
-                  >
-                    <div
-                      className="service"
-                      style={{
-                        backgroundImage: `url('http://192.168.61.1:4646/${firstActivePost.thumbnail.replace(
-                          /\\/g,
-                          "/"
-                        )}')`,
-                      }}
+          {posts?.data?.data.length >= 5 && (
+            <div className="fix-none" style={{ marginBottom: "24px" }}>
+              <Row gutter={[24, 24]}>
+                <Col span={12}>
+                  {firstActivePost && (
+                    <Link
+                      to={`/kham-chua-benh/dich-vu-noi-bat/${firstActivePost.slug}`}
                     >
-                      {firstActivePost.title}
-                    </div>
-                  </Link>
-                )}
-              </Col>
-              <Col span={12}>
-                <Row gutter={[8, 8]}>
-                  {postsFromSecond.map((post: TPostsDto, index: number) => (
-                    <Col key={index} span={12}>
-                      <Link to={`/kham-chua-benh/dich-vu-noi-bat/${post.slug}`}>
-                        <div
-                          className="service-outstanding"
-                          style={{
-                            backgroundImage: post.thumbnail
-                              ? `url('http://192.168.61.1:4646/${post.thumbnail.replace(
-                                  /\\/g,
-                                  "/"
-                                )}')`
-                              : undefined,
-                          }}
+                      <div
+                        className="service"
+                        style={{
+                          backgroundImage: `url('http://192.168.61.1:4646/${firstActivePost.thumbnail.replace(
+                            /\\/g,
+                            "/"
+                          )}')`,
+                        }}
+                      >
+                        {firstActivePost.title}
+                      </div>
+                    </Link>
+                  )}
+                </Col>
+                <Col span={12}>
+                  <Row gutter={[8, 8]}>
+                    {postsFromSecond.map((post: TPostsDto, index: number) => (
+                      <Col key={index} span={12}>
+                        <Link
+                          to={`/kham-chua-benh/dich-vu-noi-bat/${post.slug}`}
                         >
-                          {post.title}
-                        </div>
-                      </Link>
-                    </Col>
-                  ))}
-                </Row>
-              </Col>
-            </Row>
-          </div>
+                          <div
+                            className="service-outstanding"
+                            style={{
+                              backgroundImage: post.thumbnail
+                                ? `url('http://192.168.61.1:4646/${post.thumbnail.replace(
+                                    /\\/g,
+                                    "/"
+                                  )}')`
+                                : undefined,
+                            }}
+                          >
+                            {post.title}
+                          </div>
+                        </Link>
+                      </Col>
+                    ))}
+                  </Row>
+                </Col>
+              </Row>
+            </div>
+          )}
           <Row gutter={[32, 32]}>
             {posts?.data.data.map((post: TPostsDto, index: number) => (
               <Col
