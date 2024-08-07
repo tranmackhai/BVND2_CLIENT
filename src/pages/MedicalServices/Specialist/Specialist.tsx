@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Col, Row, Spin, Pagination } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import SideBar from "../../../components/SideBar";
@@ -35,19 +35,43 @@ const Specialist = ({ specialty }: SpecialistProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const groupCategorySlug = location.pathname.split("/")[2];
+  const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(10);
   const [currentSpecialty, setCurrentSpecialty] = useState<Specialty | null>(
     null
   );
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10; // Số lượng bài viết trên mỗi trang
-
   const { posts, refetch, isLoading } = usePosts({
-    // keyword,
+    isActive: true,
+    page,
+    pageSize,
     groupCategorySlug,
   });
 
   useEffect(() => {
+    switch (groupCategorySlug) {
+      case "chuyen-khoa-ngoai":
+        setCurrentSpecialty(Specialty.SurgicalSpecialty);
+        break;
+      case "chuyen-khoa-noi":
+        setCurrentSpecialty(Specialty.InternalMedicine);
+        break;
+      case "can-lam-sang":
+        setCurrentSpecialty(Specialty.ClinicalMedicine);
+        break;
+      default:
+        setCurrentSpecialty(null);
+        break;
+    }
+  }, [groupCategorySlug]);
+
+  useEffect(() => {
     refetch();
+  }, [page, pageSize, refetch]);
+
+  const handleChangPage = useCallback((page: number, pageSize: number) => {
+    setPage(page);
+    setPageSize(pageSize);
+    window.scrollTo(0, 0);
   }, []);
 
   if (isLoading) {
@@ -67,28 +91,12 @@ const Specialist = ({ specialty }: SpecialistProps) => {
     }
   };
 
-  // Lọc và hiển thị các bài viết theo chuyên khoa được chọn
-  const filteredPosts = () => {
-    let filteredData = posts?.data?.data;
-
-    if (currentSpecialty) {
-      filteredData = filteredData?.filter(
-        (post: TPostsDto) => post.postCategory === currentSpecialty
-      );
-    } else {
-      filteredData = filteredData?.filter((post: TPostsDto) => post.isActive);
-    }
-
-    return filteredData;
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    window.scrollTo(0, 0);
-  };
-
-  const startIndex = (currentPage - 1) * pageSize;
-  const slicedData = filteredPosts()?.slice(startIndex, startIndex + pageSize);
+  const filteredPosts =
+    currentSpecialty !== null
+      ? posts?.data.data?.filter(
+          (post: TPostsDto) => post.postCategory === currentSpecialty
+        )
+      : posts?.data.data;
 
   return (
     <HelmetProvider>
@@ -116,7 +124,6 @@ const Specialist = ({ specialty }: SpecialistProps) => {
                     className="specialist-button"
                     onClick={() => {
                       setCurrentSpecialty(Specialty.SurgicalSpecialty);
-                      setCurrentPage(1);
                       navigate(
                         "/kham-chua-benh/cac-chuyen-khoa/chuyen-khoa-ngoai"
                       );
@@ -130,7 +137,6 @@ const Specialist = ({ specialty }: SpecialistProps) => {
                     className="specialist-button"
                     onClick={() => {
                       setCurrentSpecialty(Specialty.InternalMedicine);
-                      setCurrentPage(1);
                       navigate(
                         "/kham-chua-benh/cac-chuyen-khoa/chuyen-khoa-noi"
                       );
@@ -144,7 +150,6 @@ const Specialist = ({ specialty }: SpecialistProps) => {
                     className="specialist-button"
                     onClick={() => {
                       setCurrentSpecialty(Specialty.ClinicalMedicine);
-                      setCurrentPage(1);
                       navigate("/kham-chua-benh/cac-chuyen-khoa/can-lam-sang");
                     }}
                   >
@@ -153,7 +158,7 @@ const Specialist = ({ specialty }: SpecialistProps) => {
                 </Col>
               </Row>
               <div>
-                {slicedData?.map((post: TPostsDto, index: number) => (
+                {filteredPosts?.map((post: TPostsDto, index: number) => (
                   <div
                     key={index}
                     onClick={() => {
@@ -181,11 +186,12 @@ const Specialist = ({ specialty }: SpecialistProps) => {
                 ))}
                 <Pagination
                   style={{ marginTop: "12px" }}
-                  current={currentPage}
-                  onChange={handlePageChange}
-                  total={filteredPosts()?.length}
+                  current={page}
                   pageSize={pageSize}
-                  showSizeChanger={false}
+                  onChange={(page: number, pageSize: number) => {
+                    handleChangPage(page, pageSize);
+                  }}
+                  total={posts?.data.meta?.totalPosts}
                 />
               </div>
             </div>

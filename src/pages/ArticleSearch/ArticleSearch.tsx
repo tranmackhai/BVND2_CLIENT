@@ -146,7 +146,7 @@ const ArticleSearch: React.FC = () => {
                   }}
                   onClick={() => navigate(-1)}
                 >
-                  Quay lại
+                  Trở lại
                 </p>
                 <div className="sharethis-inline-share-buttons"></div>
                 {/* <NewPost /> */}
